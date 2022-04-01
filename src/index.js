@@ -6,6 +6,8 @@ const dotenv = require('dotenv')
 const app = express()
 dotenv.config()
 
+const port = process.env.PORT || 3000
+
 app.set('views', './src/views')
 app.set('view engine', 'ejs')
 
@@ -43,6 +45,6 @@ app.use('*', (req, res) => {
 })
 
 
-app.listen(3000, ()=>{console.log('server rodando...')})
+app.listen(port, ()=>{console.log(`server listenen port ${port}`)})
 
 getConnection();
