@@ -6,9 +6,10 @@ const getConnection = async () => {
     if (connection == null) {
         const client = new Client({
             connectionString: process.env.DATABASE_URL || `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DEV_PORT}/${process.env.DB_NAME}`,
-            ssl: {
-                rejectUnauthorized: process.env.DATABASE_URL ? true : false
+                ssl: {
+                    rejectUnauthorized: false 
                 }
+            
         });
 
         try {
