@@ -5,7 +5,7 @@ let connection = null;
 const getConnection = async () => {
     if (connection == null) {
         const client = new Client({
-            connectionString: 'postgres://hkiioydudgswet:8bbd1fad785a775aad19d85a3512fd842ffaf74b9e6a18728641d83a335d8268@ec2-52-73-155-171.compute-1.amazonaws.com:5432/d1fusrjcud2huc',
+            connectionString: process.env.DATABASE_URL,
             ssl: {
                 rejectUnauthorized: false
                 }
