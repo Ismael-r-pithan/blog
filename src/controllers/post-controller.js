@@ -26,7 +26,8 @@ class PostController {
     async findAll(req, res) {
     //  const posts = findAll();
         const con = await getConnection();
-        const result = await con.query('select * from public.posts order by created_at desc limit 5;')
+        const sql = `select * from public.posts order by created_at desc limit 5;`
+        const result = await con.query(sql)
         const posts = result.rows;
         let userid = req.session?.user ? true : false;
             
