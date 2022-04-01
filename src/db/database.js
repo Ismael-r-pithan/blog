@@ -5,9 +5,9 @@ let connection = null;
 const getConnection = async () => {
     if (connection == null) {
         const client = new Client({
-            connectionString: process.env.DATABASE_URL,
+            connectionString: process.env.DATABASE_URL || `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DEV_PORT}/${process.env.DB_NAME}`,
             ssl: {
-                rejectUnauthorized: false
+                rejectUnauthorized: process.env.DATABASE_URL ? true : false
                 }
         });
 
@@ -24,3 +24,4 @@ const getConnection = async () => {
 }
 
 module.exports = { getConnection }
+

@@ -1,20 +1,21 @@
 const { findAll } = require('../../db/mock-database-users')
 const { getConnection } = require('../../db/database')
+const bcrypt = require('bcrypt')
 
 class AuthController {
 
     async auth (req, res) {
         const { email, password } = req.body
+
         //const users = findAll()
         //const user = users.find(u => u.email === email && u.password === password)
 
         const con = await getConnection();
-        const result = await con.query(`select * from public.users where email = $1 and password = $2`, [email, password]);
-
+        const result = await con.query(`select * from public.users where email = $1`, [email]);
         const user = result.rows[0];
-        console.log({user});
+        const authUser = bcrypt.compareSync(password, user.password);
 
-        if (user) {
+        if (authUser) {
             req.session.user = user;
             res.redirect('/')
         } else {

@@ -2,14 +2,16 @@ const { nanoid } = require("nanoid");
 const UserModel = require("../models/user-model");
 const { save, findAll, findById } = require('../db/mock-database-users');
 const { getConnection } = require('../db/database')
+const bcrypt = require('bcrypt')
 
 class UserController {
 
     async save(req, res) {
         const { name, email, password } = req.body;
+        const bcryptPassword = bcrypt.hashSync(password, 10); 
         const id = nanoid(8);
         const createdAt = new Date();
-        const user = new UserModel(id, name, email, password, createdAt);
+        const user = new UserModel(id, name, email, bcryptPassword, createdAt);
         save(user);
 
 
