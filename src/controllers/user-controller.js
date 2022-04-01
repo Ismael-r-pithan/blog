@@ -12,7 +12,7 @@ class UserController {
         const id = nanoid(8);
         const createdAt = new Date();
         const user = new UserModel(id, name, email, bcryptPassword, createdAt);
-        save(user);
+        //save(user);
 
 
         const con = await getConnection();
@@ -25,19 +25,19 @@ class UserController {
         res.redirect('/login.html')
     }
 
-    async findAll(req, res) {
-        const users = findAll();
-        console.log(users);
-        res.send(users);
-    }
+    // async findAll(req, res) {
+    //     const users = findAll();
+    //     console.log(users);
+    //     res.send(users);
+    // }
 
-    async details(req, res) {
-        const { id } = req.params;
-        const user = findById(id);
-        console.log(user);
-        res.render('home')
+    // async details(req, res) {
+    //     const { id } = req.params;
+    //     const user = findById(id);
+    //     console.log(user);
+    //     res.render('home')
 
-    }
+    // }
 
 }
 

@@ -12,7 +12,7 @@ class PostController {
             new Date(),
             content
         );
-        save(post)
+        //save(post)
 
         const con = await getConnection();
         const sql = `insert into public.posts (added_by, created_at, content) values ($1, $2, $3);`
@@ -24,7 +24,7 @@ class PostController {
     }
 
     async findAll(req, res) {
-    //    const posts = findAll();
+    //  const posts = findAll();
         const con = await getConnection();
         const result = await con.query('select * from public.posts order by created_at desc limit 5;')
         const posts = result.rows;

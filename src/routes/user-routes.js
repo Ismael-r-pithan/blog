@@ -10,6 +10,6 @@ routes.post('/', userController.save)
 
 
 //routes.get('/:id', isAuth, userController.details)
-routes.get('/', userController.findAll)
+//routes.get('/', userController.findAll)
 
 module.exports = routes;
