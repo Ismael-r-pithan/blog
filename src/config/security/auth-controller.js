@@ -1,6 +1,6 @@
-const { findAll } = require('../../db/mock-database-users')
-const { getConnection } = require('../../db/database')
+const { getConnection } = require('../database/database-config')
 const bcrypt = require('bcrypt')
+// const { findAll } = require('../../db/mock-database-users')
 
 class AuthController {
 

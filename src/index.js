@@ -1,6 +1,6 @@
 const express = require('express')
 const session = require('express-session');
-const { getConnection } = require('./db/database')
+const { getConnection } = require('./config/database/database-config')
 const dotenv = require('dotenv')
 
 const app = express()

@@ -1,8 +1,8 @@
 const { nanoid } = require("nanoid");
 const UserModel = require("../models/user-model");
-const { save, findAll, findById } = require('../db/mock-database-users');
-const { getConnection } = require('../db/database')
+const { getConnection } = require('../config/database/database-config')
 const bcrypt = require('bcrypt')
+// const { save, findAll, findById } = require('../db/mock-database-users');
 
 class UserController {
 
@@ -25,19 +25,7 @@ class UserController {
         res.redirect('/login.html')
     }
 
-    // async findAll(req, res) {
-    //     const users = findAll();
-    //     console.log(users);
-    //     res.send(users);
-    // }
 
-    // async details(req, res) {
-    //     const { id } = req.params;
-    //     const user = findById(id);
-    //     console.log(user);
-    //     res.render('home')
-
-    // }
 
 }
 

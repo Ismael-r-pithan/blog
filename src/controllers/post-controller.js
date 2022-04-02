@@ -1,6 +1,6 @@
-const { findAll, findById, save } = require('../db/mock-database-posts')
+const { findAll, findById, save } = require('../config/database/mock-database-posts')
 const PostModel = require('../models/post-model')
-const { getConnection } = require('../db/database')
+const { getConnection } = require('../config/database/database-config')
 
 class PostController {
     
@@ -23,10 +23,20 @@ class PostController {
         res.redirect('/posts');
     }
 
+    async addpost(req, res) {
+
+        let userid = req.session?.user ? true : false;
+        res.render('addpost', { userid })
+    }
+
     async findAll(req, res) {
     //  const posts = findAll();
         const con = await getConnection();
-        const sql = `select * from public.posts order by created_at desc limit 5;`
+        const sql = `select posts.created_at, posts.content, users.name as name
+                    from posts
+                    join users on users.id = posts.added_by 
+                    order by created_at desc 
+                    limit 5;`
         const result = await con.query(sql)
         const posts = result.rows;
         let userid = req.session?.user ? true : false;
@@ -34,11 +44,40 @@ class PostController {
         res.render('home', { posts, userid })
     }
     
+    async page(req, res) {
+        let page = req.params.page;
+        const con = await getConnection();
+        const sql =`select posts.created_at, posts.content, users.name as name
+                    from posts
+                    join users on users.id = posts.added_by 
+                    order by created_at asc
+                    limit 10 
+                    offset ${page};` 
+        const result = await con.query(sql);
+        const posts = result.rows;
+        let userid = req.session?.user ? true : false;
+        res.render('posts', { posts, userid })
+        // console.log(page)
+        // res.send('Até aqui foi..')
+    }
+
+    async filterAutor(req, res) {
+        const { autor } = req.body;
+        const sql = `select posts.created_at, posts.content, users.name  as name
+                    from posts
+                    join users on users.id = posts.added_by 
+                    where name = '${autor}'
+                    order by created_at desc 
+                    limit 5;`
+        const con = await getConnection();
+        const result = await con.query(sql);
+        const posts = result.rows;
+        let userid = req.session?.user ? true : false;
+        res.render('posts', { posts, userid })
+    }
 
 
 
 }
 
 module.exports = PostController;
-
-//id = null, added_by,created_at, content

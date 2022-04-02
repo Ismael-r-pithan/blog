@@ -8,7 +8,14 @@ const postController = new PostController();
 
 routes.post('/', isAuth, postController.create)
 
+routes.post('/filterAutor', postController.filterAutor)
+
+routes.get('/addpost', postController.addpost)
+
+routes.get('/:page', postController.page)
+
 routes.get('/', postController.findAll)
+
 
 
 module.exports = routes;
