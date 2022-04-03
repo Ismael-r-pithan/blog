@@ -56,7 +56,10 @@ class PostController {
         const result = await con.query(sql);
         const posts = result.rows;
         let userid = req.session?.user ? true : false;
-        res.render('posts', { posts, userid })
+
+        const sqlcount = await con.query('select * from posts');
+        const row = sqlcount.rows;
+        res.render('posts', { posts, userid, row })
         // console.log(page)
         // res.send('Até aqui foi..')
     }
