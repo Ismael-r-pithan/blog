@@ -79,6 +79,7 @@ a {
     background-color: var(--black) !important;
     border: 1px solid hsl(32, 98%, 12%) !important;
     margin-bottom: 6px;
+    justify-content: center;
 }
 
 nav {

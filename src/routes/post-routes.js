@@ -10,17 +10,19 @@ routes.post('/', isAuth, postController.create)
 
 routes.post('/filterAutor', postController.filterAutor)
 
-routes.get('/addpost', postController.addpost)
+routes.post('/filterDate', postController.filterDate)
 
-routes.get('/attpost/:id', postController.attpost)
+routes.get('/addpost', isAuth, postController.addpost)
 
-routes.post('/update', postController.update)
+routes.get('/attpost/:id', isAuth, postController.attpost)
+
+routes.post('/update', isAuth, postController.update)
 
 routes.get('/page/:page', postController.page)
 
-routes.get('/delete/:id', postController.delete)
+routes.get('/delete/:id', isAuth, postController.delete)
 
-routes.get('/:id', postController.details)
+routes.post('/:id', isAuth, postController.details)
 
 routes.get('/', postController.findAll)
 

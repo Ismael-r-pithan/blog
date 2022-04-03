@@ -17,7 +17,7 @@ app.use(express.static('./public'))
 app.use(express.urlencoded({extended: true}))
 
 app.use(session({
-  secret: 'CHAVE DA APLICAÇÃO',
+  secret: process.env.SECRET_KEY,
   resave: false,            // FORÇA O SALVAR DA SESSION MESMO QUE NÃO MODIFICADA
   saveUninitialized: true,  // SALVAR UMA SESSION QUE NÃO INICIALIZADA
   cookie: { secure: false } // HTTP / HTTPS

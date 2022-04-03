@@ -17,15 +17,21 @@ class UserController {
 
         const con = await getConnection();
 
-        const sql = `insert into public.users (id, name, email, password, created_at) values ($1, $2, $3, $4, $5);`
-        const values = [user.id, user.name, user.email, user.password, user.createdAt];
+        const isExists = `select * from public.users where email = $1;`
+        const valuesExists = [ user.email ]
+        const usersRows = await con.query(isExists, valuesExists);
+        const userExists = usersRows.rows[0]; 
+        if (userExists) {
+            res.redirect('/cadastro.html')
+        } else {
 
-        await con.query(sql, values);
+            const sql = `insert into public.users (id, name, email, password, created_at) values ($1, $2, $3, $4, $5);`
+            const values = [user.id, user.name, user.email, user.password, user.createdAt];
+            await con.query(sql, values);
 
-        res.redirect('/login.html')
+            res.redirect('/login.html')
+        }
     }
-
-
 
 }
 
