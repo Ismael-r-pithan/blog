@@ -11,18 +11,21 @@ class AuthController {
         //const user = users.find(u => u.email === email && u.password === password)
 
         const con = await getConnection();
+        if (email) {
         const result = await con.query(`select * from public.users where email = $1`, [email]);
         const user = result.rows[0];
         const authUser = bcrypt.compareSync(password, user.password);
-
         if (authUser) {
-            req.session.user = user;
-            res.redirect('/')
-        } else {
+        req.session.user = user;
+        res.redirect('/')
+            } else {
+            res.redirect('/login.html')
+        }
+        } 
+        else {
             res.redirect('/login.html')
         }
     }
-
 
     async logout(req, res) {
         req.session.destroy();

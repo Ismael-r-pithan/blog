@@ -47,26 +47,25 @@ class PostController {
     async page(req, res) {
         let page = req.params.page;
         const con = await getConnection();
-        const sql =`select posts.created_at, posts.content, users.name as name
+        const sql =`select posts.id, posts.created_at, posts.content, users.name as name
                     from posts
                     join users on users.id = posts.added_by 
                     order by created_at asc
                     limit 10 
                     offset ${page};` 
         const result = await con.query(sql);
+
         const posts = result.rows;
         let userid = req.session?.user ? true : false;
 
         const sqlcount = await con.query('select * from posts');
         const row = sqlcount.rows;
         res.render('posts', { posts, userid, row })
-        // console.log(page)
-        // res.send('Até aqui foi..')
     }
 
     async filterAutor(req, res) {
         const { autor } = req.body;
-        const sql = `select posts.created_at, posts.content, users.name  as name
+        const sql = `select posts.id, posts.created_at, posts.content, users.name  as name
                     from posts
                     join users on users.id = posts.added_by 
                     where name = '${autor}'
@@ -75,10 +74,47 @@ class PostController {
         const result = await con.query(sql);
         const posts = result.rows;
         let userid = req.session?.user ? true : false;
-        res.render('posts-author', { posts, userid })
+        const sqlcount = await con.query('select * from posts');
+        const row = sqlcount.rows;
+        res.render('posts', { posts, userid, row })
     }
 
+    async details(req, res) {
+        let id  = req.params.id;
+        const sql = `select * from public.posts where public.posts.id = ${id}`;
+        const con = await getConnection();
+        const result = await con.query(sql);
+        const posts = result.rows;
+        let userid = req.session?.user ? true : false;
+        const sqlcount = await con.query('select * from posts');
+        const row = sqlcount.rows;
+        res.render('posts', { posts, userid, row })
+    }
 
+    async delete(req, res) {
+        let id = req.params.id;
+        const sql = `delete from public.posts where public.posts.id = ${id};`;
+        const con = await getConnection();
+        await con.query(sql);
+        res.redirect('/posts')
+    }
+
+    async attpost(req, res) {
+        let userid = req.session?.user ? true : false;
+        let postid = req.params.id;
+        res.render('attpost', { userid, postid })
+    }
+
+    async update(req, res) {
+        let postid = req.body.postid;
+        const { content } = req.body
+
+        const sql = `update public.posts set content = $1 where id = $2`;
+        const values = [ content, postid ]
+        const con = await getConnection();
+        await con.query(sql, values);
+        res.redirect('/posts')
+    }
 
 }
 

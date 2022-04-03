@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">  
     <link rel="stylesheet" href="/css/style.css" type="text/css">     
-    <title>Faça seu Post</title>
+    <title>Atualize seu Post</title>
 </head>
 <body>
     <div class="container">
@@ -43,10 +43,11 @@
 
 
     <hr>
-    <form action="/posts" method="post">
+    <form action="/posts/update" method="post">
         <div class="form-group">
-            <label for="content">Conteudo:</label><br>
+            <label for="content">Novo conteudo:</label><br>
             <textarea name="content" cols="30" rows="10"></textarea>
+            <input type="hidden" name="postid" value="<%=postid%>">
         </div>
         <input type="submit" value="Enviar" class="btn button"><br>
     </form>  

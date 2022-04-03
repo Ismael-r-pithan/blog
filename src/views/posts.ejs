@@ -21,7 +21,7 @@
                     <a class="nav-link" href="/"> Home </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/posts/1"> Posts </a>
+                    <a class="nav-link" href="/posts/page/1"> Posts </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/posts/addpost">Faça um Post</a>
@@ -55,15 +55,25 @@
                 <p><%= post.content %></p>
                 <p>Autor: <%= post.name %></p>
                 <p>Criado em: <%= post.created_at.toLocaleDateString('pt-BR', {timeZone: 'UTC'}) %></p>
+                <form action="/posts/<%=post.id%>" method="get">
+                    <button>Detalhes</button>
+                </form>
+                <form action="/posts/delete/<%=post.id%>" method="get">
+                    <button>Excluir</button>
+                </form>
+                <form action="/posts/attpost/<%=post.id%>" method="get">
+                    <button>Atualizar</button>
+                </form>
+
                 </div>
                 <hr>
                 <% }); %>
             </div>
             <div class="pagination">
                 <div class="numbers">
-                    <% for(let i = 1; i <= Math.ceil((row.length + 1) / 10); i++) { %>
+                    <% for(let i = 0; i <= Math.ceil((row.length) / 10); i++) { %>
 
-                    <div><a href="/posts/<%=i%>"><%= i %></a></div> 
+                    <div><a href="/posts/page/<%=i%>"><%= i+1 %></a></div> 
                     <%} %>
                 </div>
             </div>

@@ -12,9 +12,18 @@ routes.post('/filterAutor', postController.filterAutor)
 
 routes.get('/addpost', postController.addpost)
 
-routes.get('/:page', postController.page)
+routes.get('/attpost/:id', postController.attpost)
+
+routes.post('/update', postController.update)
+
+routes.get('/page/:page', postController.page)
+
+routes.get('/delete/:id', postController.delete)
+
+routes.get('/:id', postController.details)
 
 routes.get('/', postController.findAll)
+
 
 
 
