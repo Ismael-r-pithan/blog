@@ -20,8 +20,11 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/"> Home </a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/posts/1"> Posts </a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/add-post.html">Faça um Post</a>
+                    <a class="nav-link" href="/posts/addpost">Faça um Post</a>
                 </li>
                 </ul>
 
@@ -33,6 +36,8 @@
                 <span class="navbar-text">
                     <% if (userid == false){ %>
                     <a href="/login.html">Login</a>   
+                    <a class="p-4" href="/cadastro.html">Cadastro</a>
+                    
                     <% } else { %>
                     <a href="/logout">Logout</a>
                     <% } %>

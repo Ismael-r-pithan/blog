@@ -70,13 +70,12 @@ class PostController {
                     from posts
                     join users on users.id = posts.added_by 
                     where name = '${autor}'
-                    order by created_at desc 
-                    limit 5;`
+                    order by created_at desc;`
         const con = await getConnection();
         const result = await con.query(sql);
         const posts = result.rows;
         let userid = req.session?.user ? true : false;
-        res.render('posts', { posts, userid })
+        res.render('posts-author', { posts, userid })
     }
 
 

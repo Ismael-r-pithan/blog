@@ -68,3 +68,15 @@ a {
     text-decoration: none !important;
     color: var(--white) !important;
 }
+
+.button:hover {
+    color: var(--primary) !important;
+
+}
+
+.button {
+    color: var(--white) !important;
+    background-color: var(--black) !important;
+    border: 1px solid hsl(32, 98%, 12%) !important;
+    margin-bottom: 6px;
+}
