@@ -80,3 +80,7 @@ a {
     border: 1px solid hsl(32, 98%, 12%) !important;
     margin-bottom: 6px;
 }
+
+nav {
+    border: 1px solid hsl(32, 98%, 12%) !important;
+}
