@@ -6,6 +6,8 @@ class UserModel {
         this.password = password;
         this.createdAt = createdAt;
     }
+
+    
 }
 
 module.exports = UserModel;

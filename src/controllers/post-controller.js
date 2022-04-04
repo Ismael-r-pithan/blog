@@ -65,7 +65,7 @@ class PostController {
 
     async filterAutor(req, res) {
         const { autor } = req.body;
-        const sql = `select posts.id, posts.created_at, posts.content, users.name  as name
+        const sql = `select posts.added_by, posts.id, posts.created_at, posts.content, users.name  as name
                     from posts
                     join users on users.id = posts.added_by 
                     where name = '${autor}'
@@ -107,7 +107,10 @@ class PostController {
         if (user.id != usuario) {
             res.send('Você não tem permissão para ver detalhes de um post que não é seu');
         } 
-        const sql = `select * from public.posts where public.posts.id = ${id}`;
+        const sql = `select posts.added_by, posts.id, posts.created_at, posts.content, users.name as name
+                    from posts
+                    join users on users.id = posts.added_by 
+                    where public.posts.id = ${id}`;
         const con = await getConnection();
         const result = await con.query(sql);
         const posts = result.rows;
